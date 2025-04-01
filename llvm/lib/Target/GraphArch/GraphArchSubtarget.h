@@ -4,6 +4,7 @@
 #include "GraphArch.h"
 #include "GraphArchFrameLowering.h"
 #include "GraphArchISelLowering.h"
+#include "GraphArchRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -14,6 +15,7 @@ namespace llvm {
 class GraphArchSubtarget : public GraphArchGenSubtargetInfo {
     GraphArchTargetLowering TLInfo;
     GraphArchFrameLowering FrameLowering;
+    GraphArchRegisterInfo RegInfo;
 public:
     GraphArchSubtarget(const Triple &TT, const std::string &CPU,
                        const std::string &FS, const TargetMachine &TM);
@@ -30,6 +32,11 @@ const GraphArchTargetLowering *getTargetLowering() const override {
 const GraphArchFrameLowering *getFrameLowering() const override {
     COLOR_DUMP_CYAN
     return &FrameLowering;
+}
+
+const GraphArchRegisterInfo *getRegisterInfo() const override {
+    COLOR_DUMP_CYAN
+    return &RegInfo;
 }
 };
 

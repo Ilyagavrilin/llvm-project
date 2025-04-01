@@ -10,8 +10,8 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "GraphArchGenSubtargetInfo.inc"
 
-GraphArchSubtarget::GraphArchSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                        const StringRef &FS, const TargetMachine &TM)
-    : GraphArchGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+GraphArchSubtarget::GraphArchSubtarget(const Triple &TT, const std::string &CPU,
+                        const std::string &FS, const TargetMachine &TM)
+    : GraphArchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
     COLOR_DUMP_CYAN
 }

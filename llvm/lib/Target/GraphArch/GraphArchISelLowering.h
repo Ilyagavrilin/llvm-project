@@ -22,6 +22,20 @@ BR_CC,
 
 } // namespace GraphArchISD
 
+class GraphArchTargetLowering : public TargetLowering {
+public:
+    explicit GraphArchTargetLowering(const TargetMachine &TM, const GraphArchSubtarget &STI);
+
+    /// This method returns the name of a target specific DAG node.
+    const char *getTargetNodeName(unsigned Opcode) const override;
+
+    GraphArchSubtarget const &getSubtarget() const { return STI; }
+
+private:
+    const GraphArchSubtarget &STI;
+};
+
+
 } // end namespace llvm
 
 #endif // LLVM_LIB_TARGET_GRAPHARCH_GRAPHARCHISELLOWERING_H

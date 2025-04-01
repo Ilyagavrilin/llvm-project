@@ -1,5 +1,7 @@
+#include "MCTargetDesc/GraphArchInfo.h"
 #include "GraphArch.h"
 #include "TargetInfo/GraphArchTargetInfo.h"
+#include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 
@@ -8,10 +10,20 @@ using namespace llvm;
 #define GET_REGINFO_MC_DESC
 #include "GraphArchGenRegisterInfo.inc"
 
+#define GET_INSTRINFO_MC_DESC
+#include "GraphArchGenInstrInfo.inc"
+
 static MCRegisterInfo *createGraphArchMCRegisterInfo(const Triple &TT) {
     COLOR_DUMP_MAGENTA
     MCRegisterInfo *X = new MCRegisterInfo();
     InitGraphArchMCRegisterInfo(X, GraphArch::X0);
+    return X;
+}
+
+static MCInstrInfo *createGraphArchMCInstrInfo() {
+    COLOR_DUMP_MAGENTA
+    MCInstrInfo *X = new MCInstrInfo();
+    InitGraphArchMCInstrInfo(X);
     return X;
 }
 
@@ -21,4 +33,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGraphArchTargetMC() {
     Target &TheGraphArchTarget = getTheGraphArchTarget();
     // Register the MC register info.
     TargetRegistry::RegisterMCRegInfo(TheGraphArchTarget, createGraphArchMCRegisterInfo);
-  }
+    // Register the MC instruction info.
+    TargetRegistry::RegisterMCInstrInfo(TheGraphArchTarget, createGraphArchMCInstrInfo);
+}

@@ -7,4 +7,9 @@
 #define GET_REGINFO_ENUM
 #include "GraphArchGenRegisterInfo.inc"
 
+// Defines symbolic names for the GraphArch instructions.
+#define GET_INSTRINFO_ENUM
+#include "GraphArchGenInstrInfo.inc"
+
+
 #endif // LLVM_LIB_TARGET_GRAPHARCH_MCTARGETDESC_GRAPHARCHMCTARGETDESC_H

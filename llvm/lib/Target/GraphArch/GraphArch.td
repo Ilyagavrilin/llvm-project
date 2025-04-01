@@ -1,4 +1,8 @@
 include "llvm/Target/Target.td"
 include "GraphArchRegisterInfo.td"
+include "GraphArchInstrInfo.td"
 
-def GraphArch : Target;
+def GraphArchInstrInfo : InstrInfo;
+def GraphArch : Target {
+let InstructionSet = GraphArchInstrInfo;
+}

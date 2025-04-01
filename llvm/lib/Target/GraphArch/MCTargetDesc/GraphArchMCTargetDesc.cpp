@@ -1,5 +1,6 @@
 #include "MCTargetDesc/GraphArchInfo.h"
 #include "GraphArch.h"
+#include "GraphArchInstPrinter.h"
 #include "GraphArchMCAsmInfo.h"
 #include "TargetInfo/GraphArchTargetInfo.h"
 #include "llvm/MC/MCDwarf.h"
@@ -51,6 +52,15 @@ static MCAsmInfo *createGraphArchMCAsmInfo(const MCRegisterInfo &MRI,
     return MAI;
 }
 
+static MCInstPrinter *createGraphArchMCInstPrinter(const Triple &T,
+                                             unsigned SyntaxVariant,
+                                             const MCAsmInfo &MAI,
+                                             const MCInstrInfo &MII,
+                                             const MCRegisterInfo &MRI) {
+    COLOR_DUMP_MAGENTA
+    return new GraphArchInstPrinter(MAI, MII, MRI);
+}
+
 // Define this function so that linking succeeds.
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGraphArchTargetMC() {
     COLOR_DUMP_MAGENTA
@@ -63,4 +73,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGraphArchTargetMC() {
     // Register the MC subtarget info.
     TargetRegistry::RegisterMCSubtargetInfo(TheGraphArchTarget,
     createGraphArchMCSubtargetInfo);
+    // Register the MCInstPrinter
+    TargetRegistry::RegisterMCInstPrinter(TheGraphArchTarget, createGraphArchMCInstPrinter);
 }

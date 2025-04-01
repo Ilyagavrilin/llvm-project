@@ -1,6 +1,7 @@
 #include "GraphArch.h"
 #include "GraphArchTargetMachine.h"
 #include "TargetInfo/GraphArchTargetInfo.h"
+#include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
@@ -43,6 +44,7 @@ GraphArchTargetMachine::GraphArchTargetMachine(const Target &T, const Triple &TT
                         CPU, FS, Options, getEffectiveRelocModel(JIT, RM),
                         getEffectiveCodeModel(CM, CodeModel::Small), OL),
       TLOF(std::make_unique<TargetLoweringObjectFileELF>()) {
+  COLOR_DUMP_CYAN
   initAsmInfo();
 }
 
@@ -78,4 +80,9 @@ public:
 TargetPassConfig *GraphArchTargetMachine::createPassConfig(PassManagerBase &PM) {
   COLOR_DUMP_CYAN
   return new GraphArchPassConfig(*this, PM);
+}
+
+TargetLoweringObjectFile *GraphArchTargetMachine::getObjFileLowering() const {
+  COLOR_DUMP_CYAN
+  return TLOF.get();
 }

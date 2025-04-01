@@ -4,6 +4,7 @@ set(LLVM_TARGET_DEFINITIONS GraphArch.td)
 
 tablegen(LLVM GraphArchGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM GraphArchGenInstrInfo.inc -gen-instr-info)
+tablegen(LLVM GraphArchGenSubtargetInfo.inc -gen-subtarget)
 
 add_public_tablegen_target(GraphArchCommonTableGen)
 
@@ -12,6 +13,7 @@ add_llvm_target(GraphArchCodeGen
   GraphArchTargetMachine.cpp
   GraphArchRegisterInfo.cpp
   GraphArchInstrInfo.cpp
+  GraphArchSubtarget.cpp
 
   LINK_COMPONENTS
   CodeGen

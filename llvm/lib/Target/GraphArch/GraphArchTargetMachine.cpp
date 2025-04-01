@@ -1,5 +1,7 @@
+#include "GraphArch.h"
 #include "GraphArchTargetMachine.h"
 #include "TargetInfo/GraphArchTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
@@ -52,6 +54,23 @@ GraphArchTargetMachine::GraphArchTargetMachine(const Target &T, const Triple &TT
                                                  CodeGenOptLevel OL, bool JIT)
     : GraphArchTargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT, true) {}
 
+namespace {
+
+/// GraphArch Code Generator Pass Configuration Options.
+class GraphArchPassConfig : public TargetPassConfig {
+public:
+  GraphArchPassConfig(GraphArchTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    COLOR_DUMP_CYAN
+    return false;
+  }
+};
+
+} // end anonymous namespace
+
 TargetPassConfig *GraphArchTargetMachine::createPassConfig(PassManagerBase &PM) {
-  return new TargetPassConfig(*this, PM);
+  COLOR_DUMP_CYAN
+  return new GraphArchPassConfig(*this, PM);
 }

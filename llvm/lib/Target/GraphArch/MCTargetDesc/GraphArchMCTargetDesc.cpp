@@ -1,10 +1,13 @@
 #include "MCTargetDesc/GraphArchInfo.h"
 #include "GraphArch.h"
+#include "GraphArchMCAsmInfo.h"
 #include "TargetInfo/GraphArchTargetInfo.h"
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
@@ -37,10 +40,22 @@ static MCSubtargetInfo *createGraphArchMCSubtargetInfo(const Triple &TT,
     return createGraphArchMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 }
 
+static MCAsmInfo *createGraphArchMCAsmInfo(const MCRegisterInfo &MRI,
+    const Triple &TT,
+    const MCTargetOptions &Options) {
+    COLOR_DUMP_MAGENTA
+    MCAsmInfo *MAI = new GraphArchELFMCAsmInfo(TT);
+    unsigned SP = MRI.getDwarfRegNum(GraphArch::X1, true);
+    MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+    MAI->addInitialFrameState(Inst);
+    return MAI;
+}
+
 // Define this function so that linking succeeds.
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGraphArchTargetMC() {
     COLOR_DUMP_MAGENTA
     Target &TheGraphArchTarget = getTheGraphArchTarget();
+    RegisterMCAsmInfoFn X(TheGraphArchTarget, createGraphArchMCAsmInfo);
     // Register the MC register info.
     TargetRegistry::RegisterMCRegInfo(TheGraphArchTarget, createGraphArchMCRegisterInfo);
     // Register the MC instruction info.

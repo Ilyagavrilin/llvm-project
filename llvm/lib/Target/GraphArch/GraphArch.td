@@ -1,6 +1,7 @@
 include "llvm/Target/Target.td"
 include "GraphArchRegisterInfo.td"
 include "GraphArchInstrInfo.td"
+include "GraphArchCallingConv.td"
 
 class Proc<string Name, list<SubtargetFeature> Features>
 : Processor<Name, NoItineraries, Features>;

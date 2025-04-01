@@ -4,7 +4,9 @@
 #include "GraphArch.h"
 #include "GraphArchFrameLowering.h"
 #include "GraphArchISelLowering.h"
+#include "GraphArchInstrInfo.h"
 #include "GraphArchRegisterInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -16,6 +18,8 @@ class GraphArchSubtarget : public GraphArchGenSubtargetInfo {
     GraphArchTargetLowering TLInfo;
     GraphArchFrameLowering FrameLowering;
     GraphArchRegisterInfo RegInfo;
+    GraphArchInstrInfo InstrInfo;
+    SelectionDAGTargetInfo TSInfo;
 public:
     GraphArchSubtarget(const Triple &TT, const std::string &CPU,
                        const std::string &FS, const TargetMachine &TM);
@@ -37,6 +41,12 @@ const GraphArchFrameLowering *getFrameLowering() const override {
 const GraphArchRegisterInfo *getRegisterInfo() const override {
     COLOR_DUMP_CYAN
     return &RegInfo;
+}
+
+const GraphArchInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+  COLOR_DUMP_CYAN
+  return &TSInfo;
 }
 };
 

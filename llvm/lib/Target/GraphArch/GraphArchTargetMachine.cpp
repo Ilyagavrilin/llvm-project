@@ -62,8 +62,13 @@ public:
   GraphArchPassConfig(GraphArchTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  GraphArchTargetMachine &getGraphArchTargetMachine() const {
+    return getTM<GraphArchTargetMachine>();
+  }
+
   bool addInstSelector() override {
     COLOR_DUMP_CYAN
+    addPass(createGraphArchISelDag(getGraphArchTargetMachine(), getOptLevel()));
     return false;
   }
 };

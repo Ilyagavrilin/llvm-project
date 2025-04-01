@@ -3,6 +3,7 @@
 
 #include "MCTargetDesc/GraphArchMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Target/TargetMachine.h"
 
 #define COLOR_DUMP(Color)                                                        \
 {                                                                            \
@@ -18,5 +19,13 @@
 #define COLOR_DUMP_CYAN COLOR_DUMP(llvm::raw_ostream::CYAN)
 #define COLOR_DUMP_MAGENTA COLOR_DUMP(llvm::raw_ostream::MAGENTA)
 #define COLOR_DUMP_WHITE COLOR_DUMP(llvm::raw_ostream::WHITE)
+
+namespace llvm {
+class GraphArchTargetMachine;
+class FunctionPass;
+
+FunctionPass *createGraphArchISelDag(GraphArchTargetMachine &TM, CodeGenOptLevel OptLevel);
+
+} // namespace llvm
 
 #endif // LLVM_LIB_TARGET_GraphArch_GraphArch_H

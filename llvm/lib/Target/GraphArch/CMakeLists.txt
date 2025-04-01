@@ -6,6 +6,7 @@ tablegen(LLVM GraphArchGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM GraphArchGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM GraphArchGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM GraphArchGenMCPseudoLowering.inc -gen-pseudo-lowering)
+tablegen(LLVM GraphArchGenDAGISel.inc -gen-dag-isel)
 
 add_public_tablegen_target(GraphArchCommonTableGen)
 
@@ -16,6 +17,7 @@ add_llvm_target(GraphArchCodeGen
   GraphArchInstrInfo.cpp
   GraphArchSubtarget.cpp
   GraphArchAsmPrinter.cpp
+  GraphArchISelDagToDag.cpp
 
   LINK_COMPONENTS
   CodeGen
@@ -24,6 +26,7 @@ add_llvm_target(GraphArchCodeGen
   Target
   GraphArchInfo
   AsmPrinter
+  SelectionDAG
 
   ADD_TO_COMPONENT
   GraphArch

@@ -77,4 +77,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeGraphArchTargetMC() {
     TargetRegistry::RegisterMCInstPrinter(TheGraphArchTarget, createGraphArchMCInstPrinter);
     // Register the MC Code Emitter.
     TargetRegistry::RegisterMCCodeEmitter(TheGraphArchTarget, createGraphArchMCCodeEmitter);
+    // Register the asm backend.
+    TargetRegistry::RegisterMCAsmBackend(TheGraphArchTarget, createGraphArchAsmBackend);
 }

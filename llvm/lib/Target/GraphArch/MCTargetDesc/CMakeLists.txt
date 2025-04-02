@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMGraphArchDesc
   GraphArchInstPrinter.cpp
   GraphArchMCCodeEmitter.cpp
   GraphArchAsmBackend.cpp
+  GraphArchELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC

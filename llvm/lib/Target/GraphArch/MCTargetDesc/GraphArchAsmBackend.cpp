@@ -52,7 +52,10 @@ void applyFixup(const MCAssembler &Asm, const MCFixup &Fixup,
 }
 
 std::unique_ptr<MCObjectTargetWriter>
-    createObjectTargetWriter() const override {}
+createObjectTargetWriter() const override {
+    uint8_t OSABI = MCELFObjectTargetWriter::getOSABI(OSType);
+    return createGraphArchELFObjectWriter(false, OSABI);
+  }
 };
 
 } // end anonymous namespace

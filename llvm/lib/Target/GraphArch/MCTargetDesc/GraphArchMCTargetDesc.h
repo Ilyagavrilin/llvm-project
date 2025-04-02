@@ -1,6 +1,7 @@
 #ifndef LLVM_LIB_TARGET_GRAPHARCH_MCTARGETDESC_GRAPHARCHMCTARGETDESC_H
 #define LLVM_LIB_TARGET_GRAPHARCH_MCTARGETDESC_GRAPHARCHMCTARGETDESC_H
 
+#include <memory>
 namespace llvm {
 class MCCodeEmitter;
 class MCContext;
@@ -17,6 +18,9 @@ MCCodeEmitter *createGraphArchMCCodeEmitter(const MCInstrInfo &MCII, MCContext &
 MCAsmBackend *createGraphArchAsmBackend(const Target &T, const MCSubtargetInfo &STI,
     const MCRegisterInfo &MRI,
     const MCTargetOptions &Options);
+
+std::unique_ptr<MCObjectTargetWriter> createGraphArchELFObjectWriter(bool Is64Bit,
+                                                                     uint8_t OSABI);
 }
 // Defines symbolic names for GraphArch registers.  This defines a mapping from
 // register name to register number.

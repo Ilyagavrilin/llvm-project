@@ -38,6 +38,11 @@ void emitInstruction(const MachineInstr *MI) override;
 StringRef getPassName() const override { return "GraphArch Assembly Printer"; }
 
 bool lowerPseudoInstExpansion(const MachineInstr *MI, MCInst &Inst);
+
+// Used in pseudo lowerings
+bool lowerOperand(const MachineOperand &MO, MCOperand &MCOp) const {
+    return LowerGraphArchMachineOperandToMCOperand(MO, MCOp, *this);
+}
 };
 
 } // end anonymous namespace
@@ -53,6 +58,9 @@ if (MCInst OutInst; lowerPseudoInstExpansion(MI, OutInst)) {
     EmitToStreamer(*OutStreamer, OutInst);
     return;
 }
+    MCInst TmpInst;
+    if (!lowerGraphArchMachineInstrToMCInst(MI, TmpInst, *this))
+    EmitToStreamer(*OutStreamer, TmpInst);
 }
 
 // Force static initialization.

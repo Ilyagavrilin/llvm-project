@@ -23,7 +23,19 @@
 namespace llvm {
 class GraphArchTargetMachine;
 class FunctionPass;
+class GraphArchSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
 
+bool lowerGraphArchMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+    AsmPrinter &AP);
+bool LowerGraphArchMachineOperandToMCOperand(const MachineOperand &MO,
+         MCOperand &MCOp, const AsmPrinter &AP);
 FunctionPass *createGraphArchISelDag(GraphArchTargetMachine &TM, CodeGenOptLevel OptLevel);
 
 } // namespace llvm

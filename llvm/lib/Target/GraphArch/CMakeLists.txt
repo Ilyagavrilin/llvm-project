@@ -21,6 +21,7 @@ add_llvm_target(GraphArchCodeGen
   GraphArchAsmPrinter.cpp
   GraphArchISelDagToDag.cpp
   GraphArchISelLowering.cpp
+  GraphArchMCInstLower.cpp
 
   LINK_COMPONENTS
   CodeGen

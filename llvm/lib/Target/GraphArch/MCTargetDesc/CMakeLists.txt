@@ -2,6 +2,7 @@ add_llvm_component_library(LLVMGraphArchDesc
   GraphArchMCTargetDesc.cpp
   GraphArchMCAsmInfo.cpp
   GraphArchInstPrinter.cpp
+  GraphArchMCCodeEmitter.cpp
 
   LINK_COMPONENTS
   MC

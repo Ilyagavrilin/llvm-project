@@ -9,6 +9,7 @@ tablegen(LLVM GraphArchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM GraphArchGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM GraphArchGenCallingConv.inc -gen-callingconv)
 tablegen(LLVM GraphArchGenAsmWriter.inc -gen-asm-writer)
+tablegen(LLVM GraphArchGenMCCodeEmitter.inc -gen-emitter)
 
 add_public_tablegen_target(GraphArchCommonTableGen)
 

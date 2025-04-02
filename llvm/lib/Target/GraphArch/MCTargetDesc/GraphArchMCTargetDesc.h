@@ -1,6 +1,14 @@
 #ifndef LLVM_LIB_TARGET_GRAPHARCH_MCTARGETDESC_GRAPHARCHMCTARGETDESC_H
 #define LLVM_LIB_TARGET_GRAPHARCH_MCTARGETDESC_GRAPHARCHMCTARGETDESC_H
 
+namespace llvm {
+class MCCodeEmitter;
+class MCContext;
+class MCInstrInfo;
+
+MCCodeEmitter *createGraphArchMCCodeEmitter(const MCInstrInfo &MCII, MCContext &Ctx);
+}
+
 // Defines symbolic names for GraphArch registers.  This defines a mapping from
 // register name to register number.
 //

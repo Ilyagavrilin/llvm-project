@@ -21,6 +21,7 @@
 #include "Targets/BPF.h"
 #include "Targets/CSKY.h"
 #include "Targets/DirectX.h"
+#include "Targets/GraphArch.h"
 #include "Targets/Hexagon.h"
 #include "Targets/Lanai.h"
 #include "Targets/LoongArch.h"
@@ -469,7 +470,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     default:
       return std::make_unique<RISCV64TargetInfo>(Triple, Opts);
     }
-
+  case llvm::Triple::grapharch:
+    return std::make_unique<GraphArchTargetInfo>(Triple, Opts);
   case llvm::Triple::sparc:
     switch (os) {
     case llvm::Triple::Linux:

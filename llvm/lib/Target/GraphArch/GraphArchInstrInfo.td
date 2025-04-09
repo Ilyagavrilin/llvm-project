@@ -53,3 +53,18 @@ let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1, r2 = 0 in
 def MOVLI : GraphArchInst<0xAA, (outs GPR:$r1), (ins grapharchm16:$r3_imm),
                     "MOVli $r1 $r3_imm",
                     [(set GPR:$r1, grapharchm16:$r3_imm)]>;
+// flush
+let r1 = 0, r2 = 0, r3_imm = 0 in
+def FLUSH : GraphArchInst<0xFF, (outs), (ins), "FLUSH", [(int_grapharch_flush)]>;
+
+// putpixel
+def PUTPIXEL : GraphArchInst<0xEE, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+                      "PUTPIXEL $r1 $r2 $r3_imm", [(int_grapharch_putpixel GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;
+
+// drawcircle
+def DRAWCIRCLE : GraphArchInst<0xCC, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+                      "DRAWCIRCLE $r1 $r2 $r3_imm", [(int_grapharch_drawcircle GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;
+
+// drawsquare
+def DRAWSQUARE : GraphArchInst<0xDD, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+                      "DRAWSQUARE $r1 $r2 $r3_imm", [(int_grapharch_drawsquare GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;

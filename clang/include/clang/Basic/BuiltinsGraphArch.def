@@ -1,0 +1,6 @@
+BUILTIN(grapharchPutPixel, "vUiUiUi", "nc")
+BUILTIN(grapharchFlush, "v", "nc")
+BUILTIN(grapharchDrawCircle, "vUiUiUi", "nc")
+BUILTIN(grapharchDrawSquare, "vUiUiUi", "nc")
+
+#undef BUILTIN
